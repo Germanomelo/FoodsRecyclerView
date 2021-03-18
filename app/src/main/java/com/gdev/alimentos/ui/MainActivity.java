@@ -8,20 +8,18 @@ import com.gdev.alimentos.R;
 import com.gdev.alimentos.adapter.FoodAdapter;
 import com.gdev.alimentos.business.FoodBusiness;
 import com.gdev.alimentos.entity.FoodEntity;
+import com.gdev.alimentos.util.FoodConstants;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Menu;
-import android.view.MenuItem;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ViewHolder mViewHolder = new ViewHolder();
+    private final ViewHolder mViewHolder = new ViewHolder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,28 +32,6 @@ public class MainActivity extends AppCompatActivity {
         initRecycler();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     private void instanceView() {
         mViewHolder.mRecyclerFoods = findViewById(R.id.recycler_foods);
     }
@@ -63,13 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private void initRecycler() {
         List<FoodEntity> foodEntityList = new FoodBusiness().getList();
 
-        OnListClick foodListener = new OnListClick() {
-            @Override
-            public void onClick(int id) {
-                Intent i = new Intent(MainActivity.this, FoodDetailsActivity.class);
-                i.putExtra("ID", id);
-                startActivity(i);
-            }
+        OnListClick foodListener = id -> {
+            Intent i = new Intent(MainActivity.this, FoodDetailsActivity.class);
+            i.putExtra(FoodConstants.FOOD_ID, id);
+            startActivity(i);
         };
 
         FoodAdapter foodAdapter = new FoodAdapter(foodEntityList, foodListener);

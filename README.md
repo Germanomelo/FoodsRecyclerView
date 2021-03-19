@@ -1,5 +1,5 @@
 # FoodsRecyclerView
-Lista de alimentos que exibe nome e calorias, onde pode clicar e reencaminha para outra activity
+Lista de alimentos que exibe nome e calorias, onde pode clicar e reencaminha para outra tela de detalhes do alimento
 ### Dependencias
 * [RecyclerView](https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView)
 ### Imagem
